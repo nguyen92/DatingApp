@@ -11,15 +11,17 @@
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['/messages']">Messages</a>
       </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" (click)="logout()">Log out</a>
+      </li>
     </ul>
-    <div *ngIf="loggedIn()" class="btn-group" dropdown>
-      <a id="button-animated" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
-      aria-controls="dropdown-animated">
-        Welcome {{authService.decodedToken?.unique_name | titlecase}}
+    <div *ngIf="loggedIn()" class="dropdown" dropdown>
+      <a class="dropdown-toggle text-light" dropdownToggle>
+        Welcome {{authService.decodedToken?.unique_name}}
       </a>
-      <div  class="dropdown-menu mt-3" *dropdownMenu>
-        <a class="dropdown-item" [routerLink]="['/member/modified']">
-          <i class="fa fa-user"></i>Edit Profile</a>
+      <div class="dropdown-menu mt-3" *dropdownMenu>
+        <a class="dropdown-item">
+          <i class="fa fa-user"></i> Edit Profile</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" (click)="logout()">
           <i class="fa fa-sign-out"></i> Logout</a>
