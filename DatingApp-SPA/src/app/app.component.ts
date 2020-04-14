@@ -1,20 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from './_services/auth.service';
-
+import { JwtHelperService} from '@auth0/angular-jwt';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
- model: any = {};
+export class AppComponent implements OnInit {
+  jwtHelper = new JwtHelperService();
  constructor(private authService: AuthService) {}
-login(){
-  this.authService.login(this.model).subscribe(next => {
-    console.log('login successed');
-  },
-  error => {
-    console.log('login failed');
-  });
+ngOnInit() {
+  const token = localStorage.getItem('token');
+  if (token) {
+    this.authService.decodedToken = this.jwtHelper.decodeToken(token);
+  }
 }
 }

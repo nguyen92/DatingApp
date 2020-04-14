@@ -13,7 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace DatingApp.API.Controllers
 {
-   [Authorize]
+   
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -25,6 +25,7 @@ namespace DatingApp.API.Controllers
             _repo = repo;
             _config = config;
         } 
+        
         [HttpPost("Register")]
         public async Task<IActionResult> Register(UserRegisterForDto userRegisterForDto)
         {
@@ -41,11 +42,12 @@ namespace DatingApp.API.Controllers
             return StatusCode(201);
 
         }
+       
         [HttpPost("login")]
         public async Task<IActionResult> Login (UserLoginForDto userLoginForDto)
         {
           var userFromRepo = await _repo.Login(userLoginForDto.Username.ToLower(), userLoginForDto.Password);
-          if ( userFromRepo == null)
+          if (userFromRepo == null)
                 return Unauthorized();
 
             var claims = new []
